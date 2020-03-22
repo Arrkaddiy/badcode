@@ -61,4 +61,19 @@ public class Person {
     public void setAge(Long age) {
         this.age = age;
     }
+
+    public static final class DBField {
+
+        public static final String ID = "id";
+
+        public static final String SEX = "sex";
+
+        public static final String NAME = "name";
+
+        public static final String WEIGHT = "weight";
+
+        public static final String HEIGHT = "height";
+
+        public static final String AGE = "age";
+    }
 }
