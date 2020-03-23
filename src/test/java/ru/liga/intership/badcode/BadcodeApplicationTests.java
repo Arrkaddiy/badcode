@@ -11,6 +11,7 @@ public class BadcodeApplicationTests {
 
 	@Test
 	public void contextLoads() {
+
 	}
 
 }

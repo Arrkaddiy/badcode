@@ -12,22 +12,35 @@ public class DBConnection {
 
     private static final Logger log = LoggerFactory.getLogger(DBConnection.class);
 
+    private static DBConnection dbConnection;
+
     private Connection connection;
     private Statement statement;
 
-    public boolean create(String db) {
+    private DBConnection() {
+        create();
+    }
+
+    public static DBConnection getInstance() {
+        if (dbConnection == null) {
+            dbConnection = new DBConnection();
+        }
+
+        return dbConnection;
+    }
+
+    public boolean create() {
         Properties properties = PropertiesReader.getProperties();
         return create(
-                properties.getProperty(db + ".db.url"),
-                properties.getProperty(db + ".db.login"),
-                properties.getProperty(db + ".db.password")
+                properties.getProperty("db.url"),
+                properties.getProperty("db.login"),
+                properties.getProperty("db.password")
         );
     }
 
     public boolean create(String url, String login, String password) {
         log.info("Подключение к базе - '{}', '{}'", url, login);
         boolean isConnect;
-
 
         try {
             if (connection == null) {
@@ -50,7 +63,6 @@ public class DBConnection {
             log.error("Ошибка подключения - '{}'", sqlE.getMessage());
             return false;
         }
-
 
         log.info("Успех подключения - '{}'", isConnect);
         return isConnect;
